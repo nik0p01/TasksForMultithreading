@@ -19,17 +19,17 @@ namespace HalfAsyncCaller
             _asyncResult.AsyncWaitHandle.Close();
         }
 
-        internal bool Invoke(int time, object nullObject, EventArgs emptyEventArgs)
+        public bool Invoke(int time, object nullObject, EventArgs emptyEventArgs)
         {
             return Invoke(time);
         }
 
         /// <summary>
-        /// Этот метод ждет заданный тамаут, затем передает упрвление вызывающему потоку
+        /// Этот метод ждет заданный таймаут, затем передает упрвление вызывающему потоку
         /// </summary>
         /// <param name="time">Таймаут, мс></param>
         /// <returns></returns>
-        internal bool Invoke(int time)
+        public bool Invoke(int time)
         {
             _asyncResult = _h.BeginInvoke(null, null, null, null);
             _asyncResult.AsyncWaitHandle.WaitOne(time);
@@ -37,11 +37,11 @@ namespace HalfAsyncCaller
         }
 
         /// <summary>
-        /// Этот метод закроет поток с делегатом после тамаута
+        /// Этот метод закроет поток с делегатом после таймаута
         /// </summary>
         /// <param name="time">Таймаут, мс</param>
         /// <returns></returns>
-        internal bool InvokeForTime(int time)
+        public bool InvokeForTime(int time)
         {
             Thread threadInvoke = new Thread(new ThreadStart(EventHandlerThreadInvoke));
             threadInvoke.Start();
