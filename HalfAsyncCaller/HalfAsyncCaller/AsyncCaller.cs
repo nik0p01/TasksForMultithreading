@@ -16,7 +16,7 @@ namespace HalfAsyncCaller
         public void Dispose()
         {
             _h.EndInvoke(_asyncResult);
-            _asyncResult.AsyncWaitHandle.Close();
+            _asyncResult?.AsyncWaitHandle.Close();
         }
 
         public bool Invoke(int time, object nullObject, EventArgs emptyEventArgs)
@@ -52,7 +52,7 @@ namespace HalfAsyncCaller
 
         private void EventHandlerThreadInvoke()
         {
-            _h.Invoke(null, EventArgs.Empty);
+            _h?.Invoke(null, EventArgs.Empty);
             _invokeComplete = true;
         }
     }
